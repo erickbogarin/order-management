@@ -42,7 +42,7 @@ class PedidoProdutoSearch extends PedidoProduto
      */
     public function search($params)
     {
-        $query = PedidoProduto::find();
+        $query = PedidoProduto::find()->where(['pedi_codigo' => $params['id']]);
 
         // add conditions that should always apply here
 

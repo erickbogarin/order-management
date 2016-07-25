@@ -15,12 +15,6 @@ use yii\helpers\Url;
 
     <?= $form->errorSummary($model) ?>
 
-    <?= $form->field($model, 'pedi_codigo')->dropDownList(
-        $pedidos, [
-            'prompt' => 'Selecione a data de um pedido'
-        ]
-    );?>
-
     <?= $form->field($model, 'pepr_nome')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'prod_codigo')->dropDownList(

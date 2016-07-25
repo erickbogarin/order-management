@@ -5,6 +5,9 @@ namespace app\controllers;
 use Yii;
 use app\models\Pedido;
 use app\models\PedidoSearch;
+use app\models\PedidoProduto;
+use app\models\Produto;
+use app\models\PedidoProdutoSearch;
 use app\models\Cliente;
 use app\models\FormaPagamento;
 use yii\filters\AccessControl;
@@ -12,6 +15,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use kartik\mpdf\Pdf;
 
 /**
  * PedidoController implements the CRUD actions for Pedido model.
@@ -67,8 +71,14 @@ class PedidoController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $searchModel = new PedidoProdutoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel
         ]);
     }
 
@@ -105,11 +115,17 @@ class PedidoController extends Controller
     {
         $model = $this->findModel($id);
 
+        $clientes = $this->getClientes();
+        $formasDePagamento = $this->getFormaDePagamentos();
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pedi_codigo]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'clientes' => $clientes,
+                'fmaPagto' => $formasDePagamento
             ]);
         }
     }
@@ -166,5 +182,37 @@ class PedidoController extends Controller
         $formasDePagamento = ArrayHelper::map($rows, 'fopa_codigo', 'fopa_nome');
         return $formasDePagamento;
     }
+
+    public function getProdutos() {
+        $rows = Produto::find()->all();
+
+        $produtos = ArrayHelper::map($rows, 'prod_codigo', 'prod_nome');
+        return $produtos;
+    }
+
+    public function actionRelatorio() {
+        $this->layout = 'main-pdf';
+
+        $pedidos = PedidoProduto::find()->all();
+
+        $content = $this->render('pedidos-pdf', ['pedidos' => $pedidos]);
+
+
+        $pdf = new Pdf([
+
+            'content' => $content,
+            'options' => ['title' => 'Relatório de Pedidos'],
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            'cssInline' => '.kv-heading-1{font-size:18px} th, td {text-align: center;} ',
+            'methods' => [
+                'SetHeader'=>['Relatório de Pedidos por Produtos'],
+                'SetFooter'=>['{PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+    }
+
 
 }

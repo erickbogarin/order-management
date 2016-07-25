@@ -68,7 +68,7 @@ class Pedido extends \yii\db\ActiveRecord
         return [
             'pedi_codigo' => 'Codigo',
             'pedi_data_criacao' => 'Pedi Data Criacao',
-            'pedi_data_alteracao' => 'Pedi Data Alteracao',
+            'pedi_data_alteracao' => 'Última atualiazação',
             'clien_codigo' => 'Cliente',
             'usua_codigo' => 'Usuário',
             'fopa_codigo' => 'Forma de Pagamento',

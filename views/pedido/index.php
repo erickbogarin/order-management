@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PedidoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -34,6 +35,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            return [
+                'style' => "cursor: pointer",
+                'data-id' => $model->pedi_codigo,
+            ];
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -49,17 +56,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'header' => 'PedidoProdutos',
-                'attribute'=>'pepr_nome',
-                'value' => function ($model, $key, $index) {
-                    return $model->pedidos;
+                'attribute' => 'fopa_codigo',
+                'value' => function ($data) {
+                    return $data->formaPagamento->fopa_nome;
                 },
             ],
-            // 'fopa_codigo',
-
             Yii::$app->user->isGuest ?
                 ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'] :
                 ['class' => 'yii\grid\ActionColumn']
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
+
+<?php
+$this->registerJs("
+    $('tbody td').click(function (e) {
+        var id = $(this).closest('tr').data('id');
+        if (e.target == this)
+            location.href = '" . Url::to(['pedido/view']) . "?id=' + id;
+    });
+");

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\PedidoProduto */
 
 $this->title = 'Cadastrar Pedido Produto';
-$this->params['breadcrumbs'][] = ['label' => 'Pedido Produtos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['pedido/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-produto-create">
@@ -17,7 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
         'produtos' => $produtos,
-        'pedidos' => $pedidos
     ]) ?>
 
 </div>
