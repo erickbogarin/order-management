@@ -52,7 +52,7 @@ $config = [
                 'pedido/novo' => 'pedido-produto/create',
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/produtos' => 'produto-rest'],
+                    'controller' => ['api/produtos' => 'produto-rest'],
                     'except' => ['delete']],
             ],
 

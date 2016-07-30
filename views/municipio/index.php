@@ -34,10 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'muni_codigo',
             'muni_nome',
-            'esta_codigo',
+            [
+                'attribute' => 'esta_codigo',
+                'value' => function($data) {
+                    return $data->estado->esta_nome;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

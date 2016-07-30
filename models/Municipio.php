@@ -44,9 +44,9 @@ class Municipio extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'muni_codigo' => 'Muni Codigo',
-            'muni_nome' => 'Muni Nome',
-            'esta_codigo' => 'Esta Codigo',
+            'muni_codigo' => 'Código',
+            'muni_nome' => 'Nome',
+            'esta_codigo' => 'Estado',
         ];
     }
 

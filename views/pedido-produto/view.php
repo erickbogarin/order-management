@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\PedidoProduto */
 
 $this->title = $model->pepr_nome;
-$this->params['breadcrumbs'][] = ['label' => 'Pedido Produtos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['pedido/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-produto-view">

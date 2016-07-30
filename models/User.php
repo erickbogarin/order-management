@@ -6,6 +6,7 @@ use Yii;
 
 class User extends Usuario implements \yii\web\IdentityInterface
 {
+
     /**
      * @inheritdoc
      */
@@ -18,7 +19,7 @@ class User extends Usuario implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::findOne(['usua_auth_key' => $token]);
     }
     /**
      * Finds user by username

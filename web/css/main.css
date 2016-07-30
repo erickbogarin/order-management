@@ -2715,18 +2715,3 @@ span.stButton_gradient,
   border-radius: 100%;
   margin: 10px 0;
 }
-
-.brand {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 2em;
-  text-transform: uppercase;
-  color: #3a424c !important;
-}
-
-.brand:after {
-  content: 'by Yii Framework';
-  margin-left: 5px;
-  font-size: .4em;
-  text-transform: capitalize;
-}

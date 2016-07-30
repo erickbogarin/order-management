@@ -44,25 +44,25 @@ $this->title = 'Pedidos Web API';
             <tbody>
             <tr>
                 <td>GET</td>
-                <td><code>v1/produtos</code></td>
+                <td><code>api/produtos</code></td>
                 <td>Listar Produtos</td>
                 <td>application/json</td>
             </tr>
             <tr>
                 <td>POST <small>AUTH</small></td>
-                <td><code>v1/produtos</code></td>
+                <td><code>api/produtos</code></td>
                 <td>Cadastrar Produto</td>
                 <td>201</td>
             </tr>
             <tr>
                 <td>PUT <small>AUTH</small></td>
-                <td><code>v1/produtos</code></td>
+                <td><code>api/produtos</code></td>
                 <td>Alterar Produto</td>
                 <td>200</td>
             </tr>
             <tr>
                 <td>DELETE <small>AUTH</small></td>
-                <td><code>v1/produtos</code></td>
+                <td><code>api/produtos</code></td>
                 <td>Deletar Produto</td>
                 <td>200</td>
             </tr>

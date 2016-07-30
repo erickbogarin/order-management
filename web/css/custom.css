@@ -1,0 +1,22 @@
+.brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 2em;
+    text-transform: uppercase;
+    color: #3a424c !important;
+}
+
+.brand:after {
+    content: 'by Yii Framework';
+    margin-left: 5px;
+    font-size: .4em;
+    text-transform: capitalize;
+}
+
+@media only screen and (max-width : 480px) {
+    .brand:after {
+        position: fixed;
+        top: 9%;
+        left: 5%;
+    }
+}

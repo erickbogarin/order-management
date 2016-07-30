@@ -39,8 +39,8 @@ class Fabricante extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'fabr_codigo' => 'Fabr Codigo',
-            'fabr_nome' => 'Fabr Nome',
+            'fabr_codigo' => 'Codigo',
+            'fabr_nome' => 'Nome',
         ];
     }
 

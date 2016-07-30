@@ -39,8 +39,8 @@ class Estado extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'esta_codigo' => 'Esta Codigo',
-            'esta_nome' => 'Esta Nome',
+            'esta_codigo' => 'Codigo',
+            'esta_nome' => 'Nome',
         ];
     }
 

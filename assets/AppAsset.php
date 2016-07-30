@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'css/lightbox.css',
         'css/main.css',
         'css/responsive.css',
+        'css/custom.css'
     ];
     public $js = [
         'js/lightbox.min.js',

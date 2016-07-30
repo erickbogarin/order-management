@@ -5,10 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Municipio;
 use app\models\MunicipioSearch;
+use app\models\Estado;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 /**
  * MunicipioController implements the CRUD actions for Municipio model.
  */
@@ -75,11 +77,14 @@ class MunicipioController extends Controller
     {
         $model = new Municipio();
 
+        $estados = $this->getEstados();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->muni_codigo]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'estados' => $estados
             ]);
         }
     }
@@ -131,4 +136,16 @@ class MunicipioController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * @return estados
+     */
+    public function getEstados()
+    {
+        $rows = Estado::find()->all();
+
+        $estados = ArrayHelper::map($rows, 'esta_codigo', 'esta_nome');
+        return $estados;
+    }
+
 }

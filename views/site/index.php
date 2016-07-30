@@ -14,7 +14,7 @@ $this->title = 'Treinamento Divus';
                 <div class="slide-text">
                     <h1>Descobrir e Comprar</h1>
                     <p>Boudin doner frankfurter pig. Cow shank bresaola pork loin tri-tip tongue venison pork belly meatloaf short loin landjaeger biltong beef ribs shankle chicken andouille.</p>
-                    <?= Html::a('Produtos', ['produto/index'], ['class' => 'btn btn-common']) ?>
+                    <?= Html::a('Ver Produtos', ['produto/index'], ['class' => 'btn btn-common']) ?>
                 </div>
                 <?= Html::img('@web/images/home/slider/hill.png', [
                         'class' => 'slider-hill',

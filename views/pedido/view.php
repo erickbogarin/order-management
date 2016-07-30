@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                              ?>
 
                                 <p>
-                                    <?= Html::a('Editar', ['update', 'id' => $model->pedi_codigo], ['class' => 'btn btn-primary']) ?>
-                                    <?= Html::a('Remover', ['delete', 'id' => $model->pedi_codigo], [
+                                    <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> Editar', ['update', 'id' => $model->pedi_codigo], ['class' => 'btn btn-primary']) ?>
+                                    <?= Html::a('<span class="glyphicon glyphicon-trash"></span> Remover', ['delete', 'id' => $model->pedi_codigo], [
                                         'class' => 'btn btn-danger',
                                         'data' => [
                                             'confirm' => 'Are you sure you want to delete this item?',
@@ -82,10 +82,37 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
         $gridColumns = [
-            'pepr_codigo',
-            'pepr_nome',
-            'pepr_quantidade',
-            'pepr_valor',
+            [
+                'attribute' => 'pepr_codigo',
+                'headerOptions'=>['class'=>'text-center'],
+                'contentOptions' => ['class' => 'text-center col-md-1'],
+            ],
+            [
+                'attribute' => 'pepr_nome',
+                'headerOptions'=>['class'=>'text-center'],
+                'contentOptions' => ['class' => 'text-center col-md-6'],
+            ],
+            [
+                'attribute' => 'pepr_quantidade',
+                'headerOptions'=>['class'=>'text-center'],
+                'contentOptions' => ['class' => 'text-center col-md-1'],
+            ],
+            [
+                'attribute' => 'pepr_valor',
+                'headerOptions'=>['class'=>'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+                'buttons' => [
+                    'view' => function($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
+                            Url::to(['pedido-produto/view', 'id' => $model->pepr_codigo]),
+                            ['title' => Yii::t('yii', 'Ver mais'),]);
+                    },
+                ]
+            ],
         ]
 
     ?>
@@ -96,15 +123,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id' => 'kv-grid-demo',
                 'dataProvider'=> $dataProvider,
                 'filterModel' => $searchModel,
-                'columns' => $gridColumns,
-                'containerOptions'=>['style'=>'overflow: auto'],
-                'headerRowOptions'=>['class'=>'kartik-sheet-style'],
-                'filterRowOptions'=>['class'=>'kartik-sheet-style'],
-                'pjax'=>true,
-                'pjaxSettings'=>[
-                    'neverTimeout'=>true,
-                    'enablePushState' => false,
-                    'options' => ['id' => 'BranchesGrid'],
+                'panel' => [
+                    'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> Pedidos do Cliente</h3>',
+                    'type'=>'success',
+                    'before'=> Html::a('<i class="glyphicon glyphicon-plus"></i> Criar Pedido',
+                        Url::to([
+                            'pedido-produto/create',
+                            'pedido' => $model->pedi_codigo]),[
+                            'type'=>'button',
+                            'title'=>'Novo pedido',
+                            'class'=>'btn btn-primary',
+                        ]),
+                    'footer'=>false
                 ],
                 'bordered' => true,
                 'striped' => true,
@@ -112,37 +142,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'responsive' => true,
                 'hover' => true,
                 'floatHeader' => true,
-                'toolbar'=> [
-                    ['content'=>
-                        Html::a('<i class="glyphicon glyphicon-plus"></i>',
-                            Url::to([
-                                'pedido-produto/create',
-                                'pedido' => $model->pedi_codigo]),[
-                            'type'=>'button',
-                            'title'=>'Novo pedido',
-                            'class'=>'btn btn-success',
-                        ]) .
-                        Html::a('<i class="glyphicon glyphicon-plus"></i>',
-                            Url::to([
-                                'pedido-produto/create',
-                                'pedido' => $model->pedi_codigo]),
-                            [
-                                'type'=>'button',
-                                'id' => 'pedidoModal',
-                                'title'=>'Novo pedido',
-                                'class'=>'btn btn-danger',
-                            ]
-                        )
-                    ],
-
-                ],
+                'containerOptions'=>['style'=>'overflow: auto'],
+                'toolbar'=> [],
+                // Columns
+                'columns' => $gridColumns,
                 'export'=>[
                     'fontAwesome'=>true
                 ],
-                'panel'=>[
-                    'type'=>GridView::TYPE_PRIMARY,
-                ],
-
             ]);
         ?>
     <?php yii\widgets\Pjax::end() ?>

@@ -39,8 +39,8 @@ class Categoria extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'cate_codigo' => 'Cate Codigo',
-            'cate_nome' => 'Cate Nome',
+            'cate_codigo' => 'Codigo',
+            'cate_nome' => 'Nome',
         ];
     }
 

@@ -12,8 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="produto-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <section id="page-breadcrumb">
         <div class="vertical-center sun">
             <div class="container">

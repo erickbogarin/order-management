@@ -67,7 +67,7 @@ class Pedido extends \yii\db\ActiveRecord
     {
         return [
             'pedi_codigo' => 'Codigo',
-            'pedi_data_criacao' => 'Pedi Data Criacao',
+            'pedi_data_criacao' => 'Data',
             'pedi_data_alteracao' => 'Última atualiazação',
             'clien_codigo' => 'Cliente',
             'usua_codigo' => 'Usuário',
@@ -75,7 +75,10 @@ class Pedido extends \yii\db\ActiveRecord
         ];
     }
 
-
+    /**
+     * Sets user logged on system to usua_codigo
+     *
+     */
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert)) {
@@ -119,19 +122,6 @@ class Pedido extends \yii\db\ActiveRecord
     public function getPedidoProdutos()
     {
         return $this->hasMany(PedidoProduto::className(), ['pedi_codigo' => 'pedi_codigo']);
-    }
-
-    public function getPedidos() {
-
-        $pedidos = [];
-
-
-        foreach ($this->pedidoProdutos as $key => $item) {
-            array_push($pedidos, $item->pepr_nome);
-        }
-
-        sort($pedidos);
-        return implode(array_unique($pedidos, SORT_STRING), ", ");
     }
 
 }

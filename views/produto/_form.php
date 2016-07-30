@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Produto */
@@ -16,20 +17,23 @@ use yii\widgets\ActiveForm;
     
     <?= $form->field($model, 'prod_nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cate_codigo')->dropDownList(
-        $categorias,
-        [
-            'prompt'=>'Selecione uma categoria',
-        ]
-    );
+
+    <?= $form->field($model, 'cate_codigo')->widget(Select2::classname(), [
+        'data' => $categorias,
+        'options' => ['placeholder' => 'Selecine uma categoria ...'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ]);
     ?>
 
-    <?= $form->field($model, 'fabr_codigo')->dropDownList(
-        $fabricantes,
-        [
-            'prompt'=>'Selecione um fabricante',
-        ]
-    );
+    <?= $form->field($model, 'fabr_codigo')->widget(Select2::classname(), [
+        'data' => $fabricantes,
+        'options' => ['placeholder' => 'Selecine um fabricante ...'],
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ]);
     ?>
 
     <?= $form->field($model, 'prod_valor')->textInput() ?>

@@ -47,6 +47,11 @@ class PedidoSearch extends Pedido
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'pedi_data_alteracao' => SORT_DESC,
+                ]
+            ],
         ]);
 
         $this->load($params);

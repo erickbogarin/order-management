@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
@@ -13,57 +13,67 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-index">
 
-    <section id="page-breadcrumb">
-        <div class="vertical-center sun">
-            <div class="container">
-                <div class="row">
-                    <div class="action">
-                        <div class="col-sm-12">
-                            <h1 class="title"><h1><?= Html::encode($this->title) ?></h1></h1>
-                            <p>
-                                <?= Html::a('Novo Pedido', ['create'], ['class' => 'btn btn-success']) ?>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<?php
+    $gridColumns = [
+        [
+            'attribute' => 'clien_nome',
+            'label' => 'Cliente',
+            'headerOptions'=>['class'=>'text-center'],
+            'contentOptions' => ['class' => 'text-center col-md-5'],
+            'value' => function ($data) {
+                return $data->cliente->clien_nome;
+            },
+        ],
+        [
+            'attribute' => 'fopa_codigo',
+            'headerOptions'=>['class'=>'text-center'],
+            'contentOptions' => ['class' => 'text-center'],
+            'value' => function ($data) {
+                return $data->formaPagamento->fopa_nome;
+            },
+        ],
+        [
+            'attribute' => 'pedi_data_criacao',
+            'label' => 'Data de Criação',
+            'headerOptions'=>['class'=>'text-center'],
+            'contentOptions' => ['class' => 'text-center'],
+            'value' => function ($data) {
+                return Yii::$app->formatter->asDatetime($data->pedi_data_criacao);
+            },
+        ],
+        Yii::$app->user->isGuest ?
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'] :
+            ['class' => 'yii\grid\ActionColumn']
+    ];
+?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'panel' => [
+            'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> Últimos Pedidos</h3>',
+            'type'=>'default',
+            'before'=> Html::a('<i class="glyphicon glyphicon-plus"></i> Novo Pedido', ['create'], ['class' => 'btn btn-success']),
+            'footer'=>false
+        ],
+        'bordered' => true,
+        'striped' => true,
+        'condensed' => true,
+        'responsive' => true,
+        'hover' => true,
+        'floatHeader' => true,
+        'toolbar'=> [],
+        'columns' => $gridColumns,
+        // Allow click on rows
         'rowOptions' => function ($model, $key, $index, $grid) {
             return [
                 'style' => "cursor: pointer",
                 'data-id' => $model->pedi_codigo,
             ];
         },
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'clien_codigo',
-                'value' => function ($data) {
-                    return $data->cliente->clien_nome;
-                },
-            ],
-            [
-                'attribute' => 'usua_codigo',
-                'value' => function ($data) {
-                    return $data->usuario->usua_nome;
-                },
-            ],
-            [
-                'attribute' => 'fopa_codigo',
-                'value' => function ($data) {
-                    return $data->formaPagamento->fopa_nome;
-                },
-            ],
-            Yii::$app->user->isGuest ?
-                ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'] :
-                ['class' => 'yii\grid\ActionColumn']
+        'export'=>[
+            'fontAwesome'=>true
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

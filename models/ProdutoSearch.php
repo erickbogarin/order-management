@@ -48,6 +48,15 @@ class ProdutoSearch extends Produto
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'prod_nome' => SORT_ASC,
+                    'prod_estoque' => SORT_DESC,
+                ]
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
 
         $this->load($params);
