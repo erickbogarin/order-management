@@ -20,14 +20,14 @@ Automate your ordering process with Order Management project.
 Open the command line and copy this repository:
 
 ```sh
-git clone https://github.com/erickbogarin/orders.git
-cd orders
+git clone https://github.com/erickbogarin/order-management.git
+cd order-management
 ```
 
 ### Running with Docker
 
 ```sh
-docker-compose up -d
+$ docker-compose up -d
 ```
 Go to http://localhost:8080 to see the app
 
