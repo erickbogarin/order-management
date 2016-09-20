@@ -1,0 +1,33 @@
+db:
+  image: postgres
+  environment:
+   - POSTGRES_PASSWORD=postgres
+   - POSTGRES_USER=postgres
+   - POSTGRES_DB=pedido
+  volumes:
+   - ./database/dump/:/var/lib/postgresql/data/
+  expose: 
+    - "5432"
+
+dbinit: 
+  image: postgres
+  entrypoint: /bin/bash
+  volumes:
+   - .:/host
+  command: -c 
+              "sleep 4;
+                 export PGPASSWORD='postgres';
+                 psql -h db -p 5432 -U postgres -d pedido < /host/database/init.sql;
+               exit 0;"
+  links:
+   - db
+
+web:    
+    build: .
+    command: php -S 0.0.0.0:8000 -t /app/pedido/web
+    ports:
+        - "8000:8000"
+    volumes:
+        - ./app:/app
+    links:
+         - db

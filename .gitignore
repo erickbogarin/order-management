@@ -1,27 +1,27 @@
 # phpstorm project files
-.idea
+/app/pedido/.idea
 
 # netbeans project files
-nbproject
+/app/pedido/nbproject
 
 # zend studio for eclipse project files
-.buildpath
-.project
-.settings
+/app/pedido/.buildpath
+/app/pedido/.project
+/app/pedido/.settings
 
 # windows thumbnail cache
-Thumbs.db
+/app/pedido/Thumbs.db
 
 # composer vendor dir
-/vendor
+/app/pedido/vendor
 
 # composer itself is not needed
-composer.phar
+/app/pedido/composer.phar
 
 # Mac DS_Store Files
-.DS_Store
+/app/pedido/.DS_Store
 
 # phpunit itself is not needed
-phpunit.phar
+/app/pedido/phpunit.phar
 # local phpunit config
-/phpunit.xml
+/app/pedido/phpunit.xml
