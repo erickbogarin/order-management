@@ -50,6 +50,11 @@ return [
     'charset' => 'utf8',
 ];
 ```
+Import the database backup file:
+```
+psql -U <username> -d <dbname> < database/init.sql;
+```
+
 
 #### Install via Composer
 Within the project root folder path, copy the following commands bellow:
